@@ -137,7 +137,7 @@ const displayMoviments = function(moviments, sort = false){
    const html =  `<div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} deposit</div>
       <div class="movements__date">3 days ago</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}€</div>
     </div>`;
 
     
@@ -153,7 +153,7 @@ const calcDisplayBalance = (acc)=>{
   acc.balance = acc.movements.reduce((acc,mov)=> acc + mov, 0)
 
 
-  labelBalance.innerText = `${acc.balance}€`
+  labelBalance.innerText = `${acc.balance.toFixed(2)}€`
 
 }
 
@@ -173,11 +173,11 @@ const calcDisplaySammary = (acc)=>{
     }).reduce((acc,int)=> acc + int, 0)
   
 
-    labelSumIn.innerText = `${income}€`
+    labelSumIn.innerText = `${income.toFixed(2)}€`
 
-    labelSumOut.innerText = `${expense}€`
+    labelSumOut.innerText = `${expense.toFixed(2)}€`
 
-    labelSumInterest.innerText = `${interest}€`
+    labelSumInterest.innerText = `${interest.toFixed(2)}€`
 
 
 }
@@ -218,9 +218,7 @@ btnLogin.addEventListener('click', (e)=>{
 
 
    if(currentAccont?.pin === Number(inputLoginPin.value)){
-
     //clean input filds
-
     // Display UI and  messagem
     labelWelcome.innerText = `Welcome Back , ${currentAccont.owner.split(' ')[0]}`
 
@@ -279,7 +277,7 @@ btnClose.addEventListener('click',(e)=>{
 btnLoan.addEventListener('click',(e)=>{
   e.preventDefault()
 
-  const amount =  Number(inputLoanAmount.value);
+  const amount = Number(inputLoanAmount.value);
 
 
   if(amount > 0 && currentAccont.movements.some(mov =>  mov >= amount * 0.1)){
@@ -745,6 +743,47 @@ console.log(Number.isFinite('5px'))
 
 console.log(Number.isInteger(0.2))
 console.log(Number.isInteger(0))
+
+//math 
+
+
+
+console.log(Math.max(54,4,510))
+console.log(Math.max(10,'510'))
+
+
+
+console.log(Math.min(54,4,510))
+console.log(Math.min(10,'510'))
+
+//cano
+console.log(Math.PI * Number.parseFloat('10px') ** 2)
+
+//give us a ramdom number 
+
+console.log(Math.trunc(Math.random() * 7) + 1)
+
+//MAX AND MIN
+
+const randomIn = (min,max) => Math.floor(Math.random() * (max - min) + 1) + min
+
+console.log(randomIn(10,20))
+
+
+console.log(Math.trunc(45.5))
+
+
+console.log(Math.floor(-5.6))
+
+console.log(Math.trunc(-5.6))
+
+//
+
+console.log((4,5).toFixed(4))
+
+
+
+
 
 
 
