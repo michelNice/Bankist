@@ -76,6 +76,19 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -121,14 +134,42 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 /////////////////////////////////////////////////
 
 
+const  formatDate = function(date){
 
-const displayMoviments = function(moviments, sort = false){
+
+  
+
+  const calcDaysPassed = (date1,date2) => (date1 - date2) / (1000 * 60  * 60 * 24)
+
+
+  const passDay = calcDaysPassed(new Date(),date)
+
+
+  console.log(passDay)
+ 
+ 
+
+ const year = date.getFullYear()
+ const month = `${date.getMonth() + 1}`.padStart(2,0)
+ const day = `${date.getDate()}`.padStart(2,0)
+
+
+ return `${month}/${day}/${year}`
+}
+
+
+const displayMoviments = function(acc, sort = false){
 
   containerMovements.innerHTML = ' '
 
-  const movs = sort ? moviments.slice().sort((a,b)=> a - b) : moviments
+  const movs = sort ? acc.movements.slice().sort((a,b)=> a - b) : acc.movements
 
   movs.forEach((mov,i)=>{
+
+
+  const date = new Date(acc.movementsDates[i])
+
+  const displayDate = formatDate(date)
 
 
   const type = mov > 0 ? 'deposit' :  'withdrawal'
@@ -136,7 +177,7 @@ const displayMoviments = function(moviments, sort = false){
 
    const html =  `<div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1} deposit</div>
-      <div class="movements__date">3 days ago</div>
+      <div class="movements__date">${displayDate}</div>
       <div class="movements__value">${mov}€</div>
     </div>`;
 
@@ -156,6 +197,9 @@ const calcDisplayBalance = (acc)=>{
   labelBalance.innerText = `${acc.balance.toFixed(2)}€`
 
 }
+// fake alway logo in
+
+
 
 
 
@@ -198,7 +242,7 @@ creatUserName(accounts)
 
 const updateUI = (acc)=>{
    // Display movement
-   displayMoviments(acc.movements)
+   displayMoviments(acc)
    // Display  Balance
    calcDisplayBalance(acc)
    // Display Summary
@@ -209,6 +253,14 @@ const updateUI = (acc)=>{
 //Event 
 
 let currentAccont
+
+
+currentAccont = account1
+
+updateUI(currentAccont)
+
+containerApp.style.opacity = 100
+
 
 
 btnLogin.addEventListener('click', (e)=>{
@@ -226,6 +278,22 @@ btnLogin.addEventListener('click', (e)=>{
     //clear Input filders 
     inputLoginUsername.value = inputLoginPin.value = ''
 
+    //creat current time and date
+    const clock = ()=>{
+
+      const now = new Date()
+      const year = now.getFullYear()
+      const month = `${now.getMonth() + 1}`.padStart(2,0)
+      const day = `${now.getDate()}`.padStart(2,0)
+      const hour = `${now.getHours()}`.padStart(2,0)
+      const min = `${now.getMinutes()}`.padStart(2,0)
+      const sec = `${now.getSeconds()}`.padStart(2,0)
+    
+      labelDate.textContent = `${month}/${day}/${year} ,${hour}:${min}:${sec}`
+    }
+    setInterval(clock,1000)
+
+
     inputCloseUsername.blur()
 
     updateUI(currentAccont)
@@ -235,6 +303,8 @@ btnLogin.addEventListener('click', (e)=>{
 
 btnTransfer.addEventListener('click',(e)=>{
     e.preventDefault()
+
+   
 
     const  amount = Number(inputTransferAmount.value)
 
@@ -248,7 +318,12 @@ btnTransfer.addEventListener('click',(e)=>{
       currentAccont.movements.push(-amount);
       reciveAcc.movements.push(amount)
 
+
       updateUI(currentAccont)
+
+      currentAccont.movementsDates.push(new Date().toISOString())
+
+      reciveAcc.movementsDates.push(new Date().toISOString())
     }
 })
 
@@ -269,7 +344,7 @@ btnClose.addEventListener('click',(e)=>{
 
       
       labelWelcome.innerText = 'Log in to get started'
-    }
+    } 
   
 })
 
@@ -286,7 +361,11 @@ btnLoan.addEventListener('click',(e)=>{
 
     updateUI(currentAccont)
 
+   
+
     inputLoanAmount.value = ''
+
+    currentAccont.movementsDates.push(new Date().toISOString())
   }
 })
 
@@ -296,7 +375,7 @@ let sorted = false
 btnSort.addEventListener('click',(e)=>{
   e.preventDefault()
 
-  displayMoviments(currentAccont.movements,!sorted)
+  displayMoviments(currentAccont,!sorted)
 
   sorted = !sorted
 })
@@ -782,6 +861,61 @@ console.log(Math.trunc(-5.6))
 console.log((4,5).toFixed(4))
 
 
+const isEven = n => n % 2 === 0
+
+console.log(isEven(9))
+
+console.log(isEven(10))
+
+//number seperator 
+
+const dimeter = 287_46_0000000
+
+console.log(dimeter)
+
+
+const priceCenter = 345_9
+
+console.log(priceCenter)
+
+
+console.log(2 ** 53 - 1)
+console.log(2 ** 53 + 2)
+console.log(2 ** 53 + 3)
+console.log(2 ** 53 + 4)
+console.log(2 ** 53 + 6)
+
+
+
+const hum = (BigInt(85954))
+
+console.log(hum)
+
+
+console.log(20n === 54)
+
+
+///creating date javascript 
+
+const data = new Date(account1.movementsDates[1])
+
+
+console.log(data)
+
+//calculate date
+
+
+/*
+
+
+const calcDaysPassed = (date1,date2) =>  Math.abs((date1 - date2) / (1000 * 60  * 60 * 24))
+
+ const updshot = calcDaysPassed( new Date(2023,8,17), new Date(2023,7,20))
+
+
+ console.log(updshot)
+
+*/
 
 
 
