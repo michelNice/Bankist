@@ -11,7 +11,6 @@ const account1 = {
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
-
   movementsDates: [
     '2023-07-24T21:31:17.178Z',
     '2019-12-23T07:42:02.383Z',
@@ -138,23 +137,19 @@ const  formatDate = function(date,locale){
 
  return `${month}/${day}/${year}`
   
-
-    //return   Intl.DateTimeFormat(locale).format(date)
   
   }
 }
 
 
+const formtCur = (value,locale,curracy)=>{
 
-
-const formtCur = function(value,locale, currency){
   return new Intl.NumberFormat(locale,{
-    style:'currency',
-    currency:currency
-
-}).format(value)
-
+      style:'curracy',
+      currency:curracy
+  }).format(value)
 }
+
 
 
 const displayMoviments = function(acc, sort = false){
@@ -349,7 +344,6 @@ btnLogin.addEventListener('click', (e)=>{
     if(timer) clearInterval(timer)
 
     timer = startLogOutTimer()
-
 
 
     updateUI(currentAccont)

@@ -115,7 +115,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 
 
-const formatDate = function(date){
+
+
+
+
+const formatDate = (date)=>{
 
     const calcDaysPassed = (date1,date2) => Math.round(Math.abs(date1 - date2) / 1000 * 60 * 60 * 24)
 
@@ -165,39 +169,37 @@ const displayMoviments = (acc,sort= false)=>{
 
 const calcDisplayBalance = (acc)=>{
     
-    acc.balence =  acc.reduce((acc,mov)=> acc + mov, 0)
+    acc.balence =  acc.movements.reduce((acc,mov)=> acc + mov, 0)
 
-    labelBalance.innerText = acc.balence
+    labelBalance.innerText =  acc.balance
 
 }
 
 
 
 
-
-
 const calcDisplaySammary = (acc)=>{
 
-    const income = acc.filter(mov => mov > 0).reduce((acc,mov)=> acc + mov,0)
+    const income = acc.movements.filter(mov => mov > 0).reduce((acc,mov)=> acc + mov,0)
 
-    const expense =  Math.abs(acc.filter(mov => mov < 0).reduce((acc,mov)=> acc + mov,0))
+    
+    const expense =  Math.abs(acc.movements.filter(mov => mov < 0).reduce((acc,mov)=> acc + mov,0))
 
-    const interest = acc.filter(mov => mov > 0).map(deposit => (deposit * 1.2) / 100).filter((int,i,arr)=>{
+    const interest = acc.movements.filter(mov => mov > 0).map(deposit => (deposit * 1.2) / 100).filter((int,i,arr)=>{
         return int >= 1
     }).reduce((acc,int)=> acc + int,0)
 
 
 
     labelSumIn.innerText = income
-
+    
     labelSumOut.innerText = expense
 
     labelSumInterest.innerText = interest
+    
 
 
-}   
-
- 
+} 
 
 
 
@@ -217,21 +219,55 @@ creatUserName(accounts)
 
 
 
-let currentAccont;
+let currentAccont,timer;
+
+
+
+const startLogOutTimer = ()=>{
+
+    let  time = 300
+
+    const timer = setInterval(function(){
+
+
+        const min = String(Math.trunc(time / 60)).padStart(0,'0')
+
+        const sec = String(time % 60).padStart(2,'0')
+
+
+        labelTimer.innerText = `${min}:${sec}`
+        
+
+        time--
+
+
+        if(time === -1){
+            clearInterval(timer)
+
+
+            labelWelcome.innerText = 'Log in to  get Started'
+
+            containerApp.style.opacity = 0
+
+        }
+
+
+    },1000)
+
+    return timer
+
+}   
 
 
 
 const updateUI = (acc)=>{
 
-    calcDisplayBalance(acc.movements)
+    calcDisplayBalance(acc)
 
-    calcDisplaySammary(acc.movements)
+    calcDisplaySammary(acc)
 
     displayMoviments(acc)
 }
-
-
-
 
 
 
@@ -275,11 +311,13 @@ btnLogin.addEventListener('click',(e)=>{
 
     labelDate.textContent = date
 
+
+    if(timer) clearInterval(timer)
+
+    timer = startLogOutTimer()
+
         
-        updateUI(currentAccont)
-
-
-
+    updateUI(currentAccont)
 
     }
    
@@ -287,9 +325,17 @@ btnLogin.addEventListener('click',(e)=>{
 })
 
 
-
-
 containerApp.style.opacity = 100
+
+
+const startLogOutimer = ()=>{
+
+
+}
+
+
+
+
 
 btnTransfer.addEventListener('click',(e)=>{
     e.preventDefault()
@@ -309,6 +355,11 @@ btnTransfer.addEventListener('click',(e)=>{
 
 
       updateUI(currentAccont)
+
+
+      clearInterval(timer)
+
+      timer = startLogOutTimer()
 
     }
 })
@@ -349,9 +400,13 @@ btnLoan.addEventListener('click',(e)=>{
         currentAccont.movements.push(amount)
 
         updateUI(currentAccont)
+
+
+        //Reset timer
+       clearInterval(timer)
+       timer = startLogOutTimer()
     }          
 
-   
 })
 
 
