@@ -3,6 +3,7 @@ const account1 = {
     owner: 'Jonas Schmedtmann',
     movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
     interestRate: 1.2, // %
+    currency:'GBP',
     pin: 1111,
     movementsDates: [
       '2023-07-24T21:31:17.178Z',
@@ -22,7 +23,7 @@ const account2 = {
     interestRate:0.7,
     pin:2222,
     locale:'en-US',
-    curracy:'USD',
+    currency:'USD',
     movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
     movementsDates: [
         '2019-07-24T21:31:17.178Z',
@@ -43,8 +44,8 @@ const account3 = {
     owner:'Lenny Turne Silver',
     interestRate:0.7,
     pin:3333,
-    locale:'en-GB',
-    curracy:'GPB',
+    locale:'en-US',
+    currency:'USD',
     movements: [200, -200, 340, -300, -20, 50, 400, -460],
     movementsDates: [
         '2019-11-01T13:15:33.035Z',
@@ -64,7 +65,7 @@ const account4 = {
     interestRate:0.9,
     pin:4444,
     locale:'pt-PT',
-    curracy:'EUR',
+    currency:'EUR',
     movements: [430, 1000, 700, 50, 90],
     movementsDates: [
         '2019-11-01T13:15:33.035Z',
@@ -113,7 +114,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-
+const currencies = new Map([
+    ['USD', 'United States dollar'],
+    ['EUR', 'Euro'],
+    ['GBP', 'Pound sterling'],
+  ]);
 
 
 
@@ -134,7 +139,14 @@ const formatDate = (date)=>{
  
 }
 
+const formtCur = (value,locale,currency)=>{
 
+
+    return new Intl.NumberFormat(locale,{
+        style:'currency',
+        currency:currency
+    }).format(value)
+}
 
 
 const displayMoviments = (acc,sort= false)=>{
@@ -145,15 +157,19 @@ const displayMoviments = (acc,sort= false)=>{
 
     const movs = sort ? acc.movements.slice().sort((a,b)=> a - b) : acc.movements
 
+    
 
     movs.forEach((mov,i)=>{
 
+        const formatedMov   = formtCur(mov,acc.locale,acc.currency)
+
         const type = mov  > 0 ? 'deposit' :  'withdrawal'
         
-        const html = `<div class="movements__row">
+        const html =  `<div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} deposit</div>
-        <div class="movements__value">
-        ${mov}</div></div>`;
+        <div class="movements__date"></div>
+        <div class="movements__value">${formatedMov}</div>
+      </div>`;
 
         containerMovements.insertAdjacentHTML('afterbegin', html)
     })
@@ -168,7 +184,7 @@ const calcDisplayBalance = (acc)=>{
     
     acc.balance =  acc.movements.reduce((acc,mov)=> acc + mov, 0)
 
-    labelBalance.innerText = acc.balance
+    labelBalance.innerText = formtCur(acc.balance,acc.locale,acc.currency)
 
 }
 
@@ -185,13 +201,15 @@ const calcDisplaySammary = (acc)=>{
     }).reduce((acc,int)=> acc + int,0)
 
 
-    labelSumIn.innerText = income
+    labelSumIn.innerText = formtCur(income,acc.locale,acc.currency)
 
 
-    labelSumOut.innerText = expense
+    labelSumOut.innerText = formtCur(expense,acc.locale,acc.currency)
 
 
-    labelSumInterest.innerText  = interest
+
+    labelSumInterest.innerText = formtCur(interest,acc.locale,acc.currency)
+   
 
 } 
 
