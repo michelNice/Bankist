@@ -160,7 +160,7 @@ const displayMoviments = (acc,sort= false)=>{
 }
 
 
-containerApp.style.opacity = 100
+
 
 
 
