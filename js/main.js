@@ -117,8 +117,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 
 
-
-
 const formatDate = (date)=>{
 
     const calcDaysPassed = (date1,date2) => Math.round(Math.abs(date1 - date2) / 1000 * 60 * 60 * 24)
@@ -135,8 +133,6 @@ const formatDate = (date)=>{
 
  
 }
-
-
 
 
 
@@ -164,18 +160,17 @@ const displayMoviments = (acc,sort= false)=>{
 }
 
 
+containerApp.style.opacity = 100
 
 
 
 const calcDisplayBalance = (acc)=>{
     
-    acc.balence =  acc.movements.reduce((acc,mov)=> acc + mov, 0)
+    acc.balance =  acc.movements.reduce((acc,mov)=> acc + mov, 0)
 
-    labelBalance.innerText =  acc.balance
+    labelBalance.innerText = acc.balance
 
 }
-
-
 
 
 const calcDisplaySammary = (acc)=>{
@@ -190,14 +185,13 @@ const calcDisplaySammary = (acc)=>{
     }).reduce((acc,int)=> acc + int,0)
 
 
-
     labelSumIn.innerText = income
-    
+
+
     labelSumOut.innerText = expense
 
-    labelSumInterest.innerText = interest
-    
 
+    labelSumInterest.innerText  = interest
 
 } 
 
@@ -311,29 +305,17 @@ btnLogin.addEventListener('click',(e)=>{
 
     labelDate.textContent = date
 
-
+    
     if(timer) clearInterval(timer)
 
     timer = startLogOutTimer()
-
-        
+      
     updateUI(currentAccont)
 
     }
    
 
 })
-
-
-containerApp.style.opacity = 100
-
-
-const startLogOutimer = ()=>{
-
-
-}
-
-
 
 
 
@@ -360,7 +342,7 @@ btnTransfer.addEventListener('click',(e)=>{
       clearInterval(timer)
 
       timer = startLogOutTimer()
-
+        
     }
 })
 
@@ -420,7 +402,3 @@ btnSort.addEventListener('click',(e)=>{
 
   sorted = !sorted
 })
-
-
-
-
