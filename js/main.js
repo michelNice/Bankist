@@ -177,9 +177,6 @@ const displayMoviments = (acc,sort= false)=>{
 
 
 
-
-
-
 const calcDisplayBalance = (acc)=>{
     
     acc.balance =  acc.movements.reduce((acc,mov)=> acc + mov, 0)
@@ -205,7 +202,6 @@ const calcDisplaySammary = (acc)=>{
 
 
     labelSumOut.innerText = formtCur(expense,acc.locale,acc.currency)
-
 
 
     labelSumInterest.innerText = formtCur(interest,acc.locale,acc.currency)
