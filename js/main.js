@@ -16,7 +16,7 @@ const account1 = {
       '2023-07-23T10:51:36.790Z',
     ],
     currency: 'EUR',
-    locale: 'pt-PT', // de-DE
+    locale: 'pt-PT', 
   };
 const account2 = {
     owner:'Ana Garcia Diaz',
@@ -129,6 +129,11 @@ const formatDate = (date)=>{
 
     const passDay = calcDaysPassed(new Date(),date)
 
+
+    if(passDay === 0)return "Today"
+    if(passDay === 1)return "Yestusday"
+    if(passDay <= 7)return `${passDay} days ago`
+
     const year = date.getFull()
     const month = `${date.getMonth() + 1}`.padEnd(2,0)
     const day = `${date.getDate()}`.padEnd(2,0)
@@ -157,9 +162,12 @@ const displayMoviments = (acc,sort= false)=>{
 
     const movs = sort ? acc.movements.slice().sort((a,b)=> a - b) : acc.movements
 
-    
 
     movs.forEach((mov,i)=>{
+
+        const date = new Date()
+
+        const displayDate = formatDate(date)
 
         const formatedMov   = formtCur(mov,acc.locale,acc.currency)
 
@@ -167,7 +175,7 @@ const displayMoviments = (acc,sort= false)=>{
         
         const html =  `<div class="movements__row">
         <div class="movements__type movements__type--${type}">${i + 1} deposit</div>
-        <div class="movements__date"></div>
+        <div class="movements__date">${displayDate}</div>
         <div class="movements__value">${formatedMov}</div>
       </div>`;
 
