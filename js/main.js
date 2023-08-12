@@ -123,17 +123,18 @@ const currencies = new Map([
 
 const formatDate = (date)=>{
 
-    const year = date.getFullYear()
-    const month = `${date.getMonth() + 1}`.padEnd(0,2)
-    const day = `${date.getDate()}`.padEnd(2,0)
 
+    const year = date.getFullYear()
+    const month = `${date.getMonth() + 1}`.padStart(2,0)
+    const day = `${date.getDate()}`.padStart(2,0)
+  
     return `${month}/${day}/${year}`
 
+    
 }
 
 
 
-console.log(formatDate(new Date()))
 
 const formtCur = (value,locale,currency)=>{
 
@@ -351,6 +352,11 @@ btnTransfer.addEventListener('click',(e)=>{
       clearInterval(timer)
 
       timer = startLogOutTimer()
+
+
+      reciveAcc.movementsDates.push(new Date())
+
+      currentAccont.movementsDates.push(new Date())
         
     }
 })
@@ -380,15 +386,17 @@ btnClose.addEventListener('click',(e)=>{
 btnLoan.addEventListener('click',(e)=>{
     e.preventDefault()
 
-    const amount = Number(inputLoanAmount.value)
+    const amount = Number(inputLoanAmount.value) 
 
 
     inputLoanAmount.value = ''
 
     if(amount > 0  && currentAccont.movements.some(mov => mov >= amount * 1)){
         
+         currentAccont.movements.push(amount)
 
-        currentAccont.movements.push(amount)
+
+     
 
         updateUI(currentAccont)
 
@@ -396,6 +404,9 @@ btnLoan.addEventListener('click',(e)=>{
         //Reset timer
        clearInterval(timer)
        timer = startLogOutTimer()
+
+
+       currentAccont.movementsDates.push(new Date().toISOString())
     }          
 
 })

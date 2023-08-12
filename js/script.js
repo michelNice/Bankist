@@ -374,7 +374,7 @@ btnTransfer.addEventListener('click',(e)=>{
       timer = startLogOutTimer()
     
 
-      currentAccont.movementsDates.push(new Date().toISOString())
+      currentAccont.movementsDates.push(new Date())
 
       reciveAcc.movementsDates.push(new Date().toISOString())
     }
