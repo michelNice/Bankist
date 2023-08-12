@@ -141,6 +141,7 @@ const  formatDate = function(date,locale){
 }
 
 
+
 const formtCur = (value,locale,curracy)=>{
 
   return new Intl.NumberFormat(locale,{
@@ -202,7 +203,6 @@ const calcDisplaySammary = (acc)=>{
     const income = acc.movements.filter(mov => mov > 0).reduce((acc,mov)=> acc + mov, 0)
 
 
-
     const expense = Math.abs(acc.movements.filter(mov => mov < 0).reduce((acc,mov)=> acc + mov, 0))
 
 
@@ -211,8 +211,6 @@ const calcDisplaySammary = (acc)=>{
   }).reduce((acc,int)=> acc + int, 0)
 
   
-
-    //labelSumIn.innerText = `${income.toFixed(2)}€`
 
     labelSumIn.innerText = formtCur(income,acc.locale,acc.currency)
 
