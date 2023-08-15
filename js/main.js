@@ -288,11 +288,8 @@ btnLogin.addEventListener('click',(e)=>{
 
         labelWelcome.innerText = `Welcome Back , ${currentAccont.owner.split(' ')[0]}`
 
-
         containerApp.style.opacity = 100
 
-
-        
       const now = new Date()
 
       const opitions = {
@@ -324,7 +321,6 @@ btnLogin.addEventListener('click',(e)=>{
 
     }
    
-
 })
 
 
@@ -395,11 +391,7 @@ btnLoan.addEventListener('click',(e)=>{
         
          currentAccont.movements.push(amount)
 
-
-     
-
         updateUI(currentAccont)
-
 
         //Reset timer
        clearInterval(timer)
