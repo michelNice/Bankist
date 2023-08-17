@@ -140,15 +140,13 @@ const formatDate = (date)=>{
     
     if(passDay === 0)return 'Today'
     if(passDay === 1)return 'Yestusday'
-    if(passDay >= 7)return ` ${passDay} days ago}`
+    if(passDay <= 7)return ` ${passDay} days ago}`
+    else{
+        return `${month}/${day}/${year}`
+    }
   
-    return `${month}/${day}/${year}`
-
     
 }
-
-
-
 
 
 const formtCur = (value,locale,currency)=>{
