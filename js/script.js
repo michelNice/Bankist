@@ -116,7 +116,6 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
-
 const  formatDate = function(date,locale){
 
   const calcDaysPassed = (date1,date2) => Math.round(Math.abs(date1 - date2) / (1000 * 60  * 60 * 24))
@@ -189,8 +188,6 @@ const calcDisplayBalance = (acc)=>{
 
   acc.balance = acc.movements.reduce((acc,mov)=> acc + mov, 0)
 
-
-  //labelBalance.innerText = `${acc.balance.toFixed(2)}€`
 
   labelBalance.innerText = formtCur(acc.balance,acc.locale,acc.currency)
 

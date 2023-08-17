@@ -124,14 +124,29 @@ const currencies = new Map([
 const formatDate = (date)=>{
 
 
+    const calcDaysPass = (date1, date2) => Math.round(Math.abs(date1 - date2) / 1000 * 60 * 60 * 24)
+
+
+    const passDay = calcDaysPass(date)
+
+
+    console.log(passDay)
+
+
     const year = date.getFullYear()
     const month = `${date.getMonth() + 1}`.padStart(2,0)
     const day = `${date.getDate()}`.padStart(2,0)
+
+    
+    if(passDay === 0)return 'Today'
+    if(passDay === 1)return 'Yestusday'
+    if(passDay >= 7)return ` ${passDay} days ago}`
   
     return `${month}/${day}/${year}`
 
     
 }
+
 
 
 
@@ -206,8 +221,6 @@ const calcDisplaySammary = (acc)=>{
    
 
 } 
-
-
 
 
 const creatUserName = ((acc)=>{
