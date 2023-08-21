@@ -425,3 +425,8 @@ btnSort.addEventListener('click',(e)=>{
 
   sorted = !sorted
 })
+
+
+
+const arr = [1,3,4,-3,-4]
+
