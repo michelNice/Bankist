@@ -2,7 +2,7 @@
 const account1 = {
     owner: 'Jonas Schmedtmann',
     movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-    interestRate: 1.2, // %
+    interestRate:1.2, // %
     currency:'GBP',
     pin: 1111,
     movementsDates: [
@@ -18,6 +18,7 @@ const account1 = {
     currency: 'EUR',
     locale: 'pt-PT', 
   };
+
 const account2 = {
     owner:'Ana Garcia Diaz',
     interestRate:0.7,
@@ -37,9 +38,6 @@ const account2 = {
       ],
 }
 
-
-
-
 const account3 = {
     owner:'Lenny Turne Silver',
     interestRate:0.7,
@@ -57,7 +55,6 @@ const account3 = {
         '2023-06-24T18:49:59.371Z',
         '2023-07-14T12:01:20.894Z',
       ],
-
 }
 
 const account4 = {
@@ -150,7 +147,6 @@ const formatDate = (date)=>{
 
 
 const formtCur = (value,locale,currency)=>{
-
 
     return new Intl.NumberFormat(locale,{
         style:'currency',
@@ -399,17 +395,22 @@ btnLoan.addEventListener('click',(e)=>{
     inputLoanAmount.value = ''
 
     if(amount > 0  && currentAccont.movements.some(mov => mov >= amount * 1)){
-        
-         currentAccont.movements.push(amount)
 
-        updateUI(currentAccont)
+        setTimeout(function(){
+               currentAccont.movements.push(amount)
+
+                updateUI(currentAccont)
+
+                 clearInterval(timer)
+                 timer = startLogOutTimer()
+
+                currentAccont.movementsDates.push(new Date().toISOString())
+        },3000)
+        
+      
 
         //Reset timer
-       clearInterval(timer)
-       timer = startLogOutTimer()
-
-
-       currentAccont.movementsDates.push(new Date().toISOString())
+      
     }          
 
 })
@@ -428,5 +429,5 @@ btnSort.addEventListener('click',(e)=>{
 
 
 
-const arr = [1,3,4,-3,-4]
+
 
