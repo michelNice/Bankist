@@ -1,3 +1,4 @@
+
 'use  strict';
 const account1 = {
     owner: 'Jonas Schmedtmann',
@@ -118,6 +119,7 @@ const currencies = new Map([
   ]);
 
 
+
 const formatDate = (date)=>{
 
 
@@ -156,7 +158,6 @@ const formtCur = (value,locale,currency)=>{
 
 
 const displayMoviments = (acc,sort= false)=>{
-
 
 
     containerMovements.innerText = ''
@@ -262,7 +263,6 @@ const startLogOutTimer = ()=>{
 
         }
 
-
     },1000)
 
     return timer
@@ -279,7 +279,6 @@ const updateUI = (acc)=>{
 
     displayMoviments(acc)
 }
-
 
 
 btnLogin.addEventListener('click',(e)=>{
@@ -426,8 +425,4 @@ btnSort.addEventListener('click',(e)=>{
 
   sorted = !sorted
 })
-
-
-
-
 
