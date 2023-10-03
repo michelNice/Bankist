@@ -122,7 +122,6 @@ const currencies = new Map([
 
 const formatDate = (date)=>{
 
-
     const calcDaysPass = (date1, date2) => Math.round(Math.abs(date1 - date2) / 1000 * 60 * 60 * 24)
 
 
