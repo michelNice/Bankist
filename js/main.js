@@ -301,8 +301,6 @@ btnLogin.addEventListener('click',(e)=>{
         weekday:'long'
       }
 
-      //const locale = navigator.language
-
 
       //internalizaiton
     const date = new Intl.DateTimeFormat(currentAccont.locale,opitions).format(now)
