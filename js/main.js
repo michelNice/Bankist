@@ -182,8 +182,6 @@ const displayMoviments = (acc,sort= false)=>{
     })
 }
 
-
-
 const calcDisplayBalance = (acc)=>{
     
     acc.balance =  acc.movements.reduce((acc,mov)=> acc + mov, 0)
@@ -191,8 +189,6 @@ const calcDisplayBalance = (acc)=>{
     labelBalance.innerText = formtCur(acc.balance,acc.locale,acc.currency)
 
 }
-
-
 const calcDisplaySammary = (acc)=>{
 
     const income = acc.movements.filter(mov => mov > 0).reduce((acc,mov)=> acc + mov,0)
@@ -215,7 +211,6 @@ const calcDisplaySammary = (acc)=>{
    
 
 } 
-
 
 const creatUserName = ((acc)=>{
 
@@ -312,12 +307,9 @@ btnLogin.addEventListener('click',(e)=>{
       //internalizaiton
     const date = new Intl.DateTimeFormat(currentAccont.locale,opitions).format(now)
     
-
-    //labelDate.textContent = `${date} ,${hour}:${min}:${sec}`
-
     labelDate.textContent = date
 
-    
+
     if(timer) clearInterval(timer)
 
     timer = startLogOutTimer()
